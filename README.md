@@ -1,4 +1,3 @@
-======================================
 PLANESCAPE: TORMENT - ENHANCED EDITION
 MOD UI: Book of Torment v1.45
 ======================================
