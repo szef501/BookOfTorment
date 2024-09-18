@@ -1,13 +1,18 @@
 PLANESCAPE: TORMENT - ENHANCED EDITION
+
 MOD UI: Book of Torment v1.45
 ======================================
 
 Note that the installation overwrites the UI.menu, and BGEE.lua files
 
 Before installing, download the following mod:
+
 https://forums.beamdog.com/discussion/64382/mod-journal-portrait-conversations-for-pstee/p1
+
 (DWN: https://forums.beamdog.com/uploads/editor/w2/53k6wv7d6y0z.zip
+
 https://web.archive.org/web/20230707040057/https://forums.beamdog.com/uploads/editor/w2/53k6wv7d6y0z.zip)
+
 (The above mod is required for the 'Book of Torment' to display portraits in dialogue boxes.)
 
 WeiDU is also required for auto install:
