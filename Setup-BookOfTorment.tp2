@@ -1,0 +1,25 @@
+BACKUP ~BookOfTorment/backup~
+AUTHOR ~FallDamage312, szef~
+VERSION ~v1.45~
+
+README ~BookOfTorment/readme/readme-%LANGUAGE%.txt~
+       ~BookOfTorment/readme/readme.txt~
+
+LANGUAGE ~English~
+	~english~
+	~BookOfTorment/lang/en_US/setup.tra~
+
+
+LANGUAGE ~Polish~
+	~polish~
+	~BookOfTorment/lang/pl_PL/setup.tra~
+
+BEGIN @1
+REQUIRE_PREDICATE (GAME_IS ~pstee~) @10
+	
+	COPY ~%MOD_FOLDER%/copy/main~ ~override~
+	COPY ~%MOD_FOLDER%/copy/mos+pvrz~ ~override~
+	COPY ~%MOD_FOLDER%/copy/bam~ ~override~
+	COPY ~%MOD_FOLDER%/copy/bestia2~ ~override~
+
+
