@@ -13,6 +13,10 @@ LANGUAGE ~Polski (Polish)~
 	~polish~
 	~BookOfTorment/lang/polish/setup.tra~
 	
+LANGUAGE ~Italiano (Italian)~
+	~italian~
+	~BookOfTorment/lang/italian/setup.tra~
+
 LANGUAGE ~Simplified Chinese~
     ~schinese~
     ~BookOfTorment/lang/schinese/setup.tra~
@@ -27,6 +31,7 @@ PRINT @10
 PRINT @11
 
 INCLUDE ~%MOD_FOLDER%/lib/g-bt_ui.tpa~
+INCLUDE ~%MOD_FOLDER%/lib/g-bt_it.tpa~
 INCLUDE ~%MOD_FOLDER%/lib/g-bt_bestiary_fix.tpa~
 INCLUDE ~%MOD_FOLDER%/lib/g-bt.tph~
 

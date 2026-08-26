@@ -1,0 +1,106 @@
+// Italian localization bridge for Book of Torment v1.72
+// Runs ONLY when the WeiDU installer language is "italian".
+// The upstream L_en_US.lua remains the fallback source used by PST:EE; its
+// 25 Book of Torment keys are translated only for an Italian installation.
+// If a native L_it_IT.lua resource exists, the same 25 keys are added/updated
+// there as well. No synthetic L_it_IT.lua is created.
+// All key replacement regexes are anchored to line starts to prevent substring
+// collisions (notably JOURNAL vs DEFAULT_JOURNAL / NEW_JOURNAL).
+
+ACTION_IF (~%LANGUAGE%~ STR_EQ ~italian~) BEGIN
+    // 1) Translate only the 25 BoT keys in the English fallback already patched upstream.
+    COPY_EXISTING ~L_en_US.lua~ ~override~
+        PATCH_IF (INDEX_BUFFER(~G-Book of Torment~) < 0) BEGIN
+            PATCH_FAIL ~Book of Torment ITA: il blocco BoT non è stato trovato in L_en_US.lua; rollback per evitare una localizzazione parziale.~
+        END
+        REPLACE_TEXTUALLY ~^[ %TAB%]*ORIGINAL_DBOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    ORIGINAL_DBOX = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N\\n\\nO r i g i n a l e\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*JPC_DBOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    JPC_DBOX = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N\\n\\nJ o u r n a l \\tP o r t r a i t \\tC o n v e r s a t i o n s\\n\\t(à la Smeagolheart)^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SDB_DBOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SDB_DBOX = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N\\n\\nD i a l o g o \\tL a t e r a l e\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*TTON_DBOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    TTON_DBOX = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N\\n\\nA \\tl a \\tN u m e n e r a\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*DBOX_SKIN[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    DBOX_SKIN = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_DBOX_STRING_0[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_DBOX_STRING_0 = "^0xffd5c885Originale",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_DBOX_STRING_1[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_DBOX_STRING_1 = "^0xffd5c885Con ritratti",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_DBOX_STRING_2[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_DBOX_STRING_2 = "^0xffd5c885Laterale",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_DBOX_STRING_3[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_DBOX_STRING_3 = "^0xffd5c885TTON",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*CLASSIC_INV[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    CLASSIC_INV = "Questo cursore permette di cambiare l'aspetto dell'inventario e la disposizione degli slot.^N\\n\\nI n v e n t a r i o \\tC l a s s i c o\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SHARED_INV[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SHARED_INV = "Questo cursore permette di cambiare l'aspetto dell'inventario e la disposizione degli slot.^N\\n\\nI n v e n t a r i o \\tC o n d i v i s o\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*INV_SKIN[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    INV_SKIN = "Questo cursore permette di cambiare l'aspetto dell'inventario e la disposizione degli slot.",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_INV_STRING_0[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_INV_STRING_0 = "^0xff78b570Classico",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_INV_STRING_1[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_INV_STRING_1 = "^0xff78b570Condiviso",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*DEFAULT_JOURNAL[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    DEFAULT_JOURNAL = "Questo cursore permette di cambiare la schermata del diario.^N\\n\\nD i a r i o \\tP r e d e f i n i t o\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*NEW_JOURNAL[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    NEW_JOURNAL = "Questo cursore permette di cambiare la schermata del diario.^N\\n\\nN u o v o \\tD i a r i o\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*JOURNAL_SKIN[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    JOURNAL_SKIN = "Questo cursore permette di cambiare la schermata del diario.",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_JOURNAL_0[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_JOURNAL_0 = "^0xff7f00ffPredefinito",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_JOURNAL_1[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_JOURNAL_1 = "^0xff7f00ffNuovo",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*DIALOGUE_BOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    DIALOGUE_BOX = "Finestra di dialogo:",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*INVENTORY[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    INVENTORY = "Schermata Inventario:",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*JOURNAL[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    JOURNAL = "Schermata del Diario:",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*COLOR_DESC[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    COLOR_DESC = "Colora e memorizza le risposte selezionate nelle finestre di dialogo (opzionale e sperimentale).",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*COLOR_ON[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    COLOR_ON = "Colora le risposte (^0xff008000SÌ^-)",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*COLOR_OFF[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    COLOR_OFF = "Colora le risposte (^0xff0000ffNO^-)",~
+    BUT_ONLY
+
+    // 2) If PST:EE exposes a native Italian Lua file, localize the same BoT keys there.
+    ACTION_IF FILE_EXISTS_IN_GAME ~L_it_IT.lua~ BEGIN
+        COPY_EXISTING ~L_it_IT.lua~ ~override~
+            PATCH_IF (INDEX_BUFFER(~G-Book of Torment~) < 0) BEGIN
+                PATCH_IF (INDEX_BUFFER(~^[ %TAB%]*SHOW_CHEATS_BUTTON[ %TAB%]*=[ %TAB%]*"[^"]*",~) < 0) BEGIN
+                    PATCH_FAIL ~Book of Torment ITA: SHOW_CHEATS_BUTTON non trovato in L_it_IT.lua; rollback per evitare una UI incompleta.~
+                END
+                REPLACE_TEXTUALLY ~\(^[ %TAB%]*SHOW_CHEATS_BUTTON[ %TAB%]*=[ %TAB%]*"[^"]*",\)~ ~\1
+
+    -- G-Book of Torment (UI mod) - Italiano
+    ORIGINAL_DBOX = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N\\n\\nO r i g i n a l e\\n^-",
+    JPC_DBOX = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N\\n\\nJ o u r n a l \\tP o r t r a i t \\tC o n v e r s a t i o n s\\n\\t(à la Smeagolheart)^-",
+    SDB_DBOX = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N\\n\\nD i a l o g o \\tL a t e r a l e\\n^-",
+    TTON_DBOX = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N\\n\\nA \\tl a \\tN u m e n e r a\\n^-",
+    DBOX_SKIN = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.",
+    SLIDER_DBOX_STRING_0 = "^0xffd5c885Originale",
+    SLIDER_DBOX_STRING_1 = "^0xffd5c885Con ritratti",
+    SLIDER_DBOX_STRING_2 = "^0xffd5c885Laterale",
+    SLIDER_DBOX_STRING_3 = "^0xffd5c885TTON",
+    CLASSIC_INV = "Questo cursore permette di cambiare l'aspetto dell'inventario e la disposizione degli slot.^N\\n\\nI n v e n t a r i o \\tC l a s s i c o\\n^-",
+    SHARED_INV = "Questo cursore permette di cambiare l'aspetto dell'inventario e la disposizione degli slot.^N\\n\\nI n v e n t a r i o \\tC o n d i v i s o\\n^-",
+    INV_SKIN = "Questo cursore permette di cambiare l'aspetto dell'inventario e la disposizione degli slot.",
+    SLIDER_INV_STRING_0 = "^0xff78b570Classico",
+    SLIDER_INV_STRING_1 = "^0xff78b570Condiviso",
+    DEFAULT_JOURNAL = "Questo cursore permette di cambiare la schermata del diario.^N\\n\\nD i a r i o \\tP r e d e f i n i t o\\n^-",
+    NEW_JOURNAL = "Questo cursore permette di cambiare la schermata del diario.^N\\n\\nN u o v o \\tD i a r i o\\n^-",
+    JOURNAL_SKIN = "Questo cursore permette di cambiare la schermata del diario.",
+    SLIDER_JOURNAL_0 = "^0xff7f00ffPredefinito",
+    SLIDER_JOURNAL_1 = "^0xff7f00ffNuovo",
+    DIALOGUE_BOX = "Finestra di dialogo:",
+    INVENTORY = "Schermata Inventario:",
+    JOURNAL = "Schermata del Diario:",
+    COLOR_DESC = "Colora e memorizza le risposte selezionate nelle finestre di dialogo (opzionale e sperimentale).",
+    COLOR_ON = "Colora le risposte (^0xff008000SÌ^-)",
+    COLOR_OFF = "Colora le risposte (^0xff0000ffNO^-)",~
+            END
+        REPLACE_TEXTUALLY ~^[ %TAB%]*ORIGINAL_DBOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    ORIGINAL_DBOX = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N\\n\\nO r i g i n a l e\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*JPC_DBOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    JPC_DBOX = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N\\n\\nJ o u r n a l \\tP o r t r a i t \\tC o n v e r s a t i o n s\\n\\t(à la Smeagolheart)^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SDB_DBOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SDB_DBOX = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N\\n\\nD i a l o g o \\tL a t e r a l e\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*TTON_DBOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    TTON_DBOX = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N\\n\\nA \\tl a \\tN u m e n e r a\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*DBOX_SKIN[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    DBOX_SKIN = "Questo cursore permette di cambiare l'aspetto della finestra di dialogo.",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_DBOX_STRING_0[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_DBOX_STRING_0 = "^0xffd5c885Originale",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_DBOX_STRING_1[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_DBOX_STRING_1 = "^0xffd5c885Con ritratti",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_DBOX_STRING_2[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_DBOX_STRING_2 = "^0xffd5c885Laterale",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_DBOX_STRING_3[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_DBOX_STRING_3 = "^0xffd5c885TTON",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*CLASSIC_INV[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    CLASSIC_INV = "Questo cursore permette di cambiare l'aspetto dell'inventario e la disposizione degli slot.^N\\n\\nI n v e n t a r i o \\tC l a s s i c o\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SHARED_INV[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SHARED_INV = "Questo cursore permette di cambiare l'aspetto dell'inventario e la disposizione degli slot.^N\\n\\nI n v e n t a r i o \\tC o n d i v i s o\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*INV_SKIN[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    INV_SKIN = "Questo cursore permette di cambiare l'aspetto dell'inventario e la disposizione degli slot.",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_INV_STRING_0[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_INV_STRING_0 = "^0xff78b570Classico",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_INV_STRING_1[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_INV_STRING_1 = "^0xff78b570Condiviso",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*DEFAULT_JOURNAL[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    DEFAULT_JOURNAL = "Questo cursore permette di cambiare la schermata del diario.^N\\n\\nD i a r i o \\tP r e d e f i n i t o\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*NEW_JOURNAL[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    NEW_JOURNAL = "Questo cursore permette di cambiare la schermata del diario.^N\\n\\nN u o v o \\tD i a r i o\\n^-",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*JOURNAL_SKIN[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    JOURNAL_SKIN = "Questo cursore permette di cambiare la schermata del diario.",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_JOURNAL_0[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_JOURNAL_0 = "^0xff7f00ffPredefinito",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_JOURNAL_1[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_JOURNAL_1 = "^0xff7f00ffNuovo",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*DIALOGUE_BOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    DIALOGUE_BOX = "Finestra di dialogo:",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*INVENTORY[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    INVENTORY = "Schermata Inventario:",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*JOURNAL[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    JOURNAL = "Schermata del Diario:",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*COLOR_DESC[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    COLOR_DESC = "Colora e memorizza le risposte selezionate nelle finestre di dialogo (opzionale e sperimentale).",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*COLOR_ON[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    COLOR_ON = "Colora le risposte (^0xff008000SÌ^-)",~
+        REPLACE_TEXTUALLY ~^[ %TAB%]*COLOR_OFF[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    COLOR_OFF = "Colora le risposte (^0xff0000ffNO^-)",~
+        BUT_ONLY
+    END
+END
