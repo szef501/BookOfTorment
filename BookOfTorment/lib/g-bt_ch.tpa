@@ -1,4 +1,3 @@
-// 4) If PST:EE exposes a native Chinese Lua file, localize the same BoT keys there.
     ACTION_IF FILE_EXISTS_IN_GAME ~L_zh_CN.lua~ BEGIN
         COPY_EXISTING ~L_zh_CN.lua~ ~override~
             PATCH_IF (INDEX_BUFFER(~G-Book of Torment~) < 0) BEGIN
