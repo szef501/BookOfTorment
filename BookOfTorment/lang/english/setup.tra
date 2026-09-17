@@ -2,6 +2,8 @@
 @01 = ~Book of Torment~
 @02 = ~This mod requires PSTEE~
 //messages during installation
+@05 = ~Adding portraits...~
+@06 = ~Applied portraits to %rnd_cnt% actors!~
 @07 = ~Adding mos+pvrz...~
 @09 = ~Added mos+pvrz!~
 @10 = ~Copying files...~

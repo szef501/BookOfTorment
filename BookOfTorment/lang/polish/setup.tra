@@ -2,6 +2,8 @@
 @01 = ~Book of Torment~
 @02 = ~Ten mod wymaga PSTEE~
 //messages during installation
+@05 = ~Dodaję portrety...~
+@06 = ~Dodano portrety dla %rnd_cnt% postaci!~
 @07 = ~Dodaję mos+pvrz...~
 @09 = ~Zakończono dodawanie mos+pvrz!~
 @10 = ~Kopiuję pliki...~
