@@ -1,6 +1,6 @@
 BACKUP ~BookOfTorment/backup~
 SUPPORT ~FallDamage312 | szef | (https://www.nexusmods.com/planescapetormentenhancededition/mods/9 | https://www.gibberlings3.net/forums/topic/36119-uimodplanescape-ee-book-of-torment-discover-the-dialogues-of-torment-in-a-new-edition/)~
-VERSION ~v1.74~
+VERSION ~v1.75~
 
 README ~BookOfTorment/readme/readme-%LANGUAGE%.txt~
        ~BookOfTorment/readme/readme.txt~
@@ -25,14 +25,15 @@ BEGIN @01
 REQUIRE_PREDICATE (GAME_IS ~pstee~) @02
 	
 PRINT @10	
-	COPY ~%MOD_FOLDER%/copy/main~ ~override~
-	COPY ~%MOD_FOLDER%/copy/bam~ ~override~
-	COPY ~%MOD_FOLDER%/copy/bestia2~ ~override~
+	COPY ~%MOD_FOLDER%/res/main~ ~override~
+	COPY ~%MOD_FOLDER%/res/bam~ ~override~
+	COPY ~%MOD_FOLDER%/res/bestia2~ ~override~
+	COPY ~%MOD_FOLDER%/res/oBMP~ ~override~
 PRINT @11
 
 INCLUDE ~%MOD_FOLDER%/lib/g-bt_ui.tpa~
+INCLUDE ~%MOD_FOLDER%/lib/g-bt.tph~
 INCLUDE ~%MOD_FOLDER%/lib/g-bt_it.tpa~
 INCLUDE ~%MOD_FOLDER%/lib/g-bt_bestiary_fix.tpa~
-INCLUDE ~%MOD_FOLDER%/lib/g-bt.tph~
 
 	
