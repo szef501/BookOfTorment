@@ -4,23 +4,16 @@ MOD UI: Book of Torment
 ======================================
 
 Instalacja zmienia pliki UI.menu, BGEE.lua, oraz L_pl_PL.lua.
-Od wersji 1.50 te pliki będą patchowane, a więc w teorii zwiększa to kompatybilność BoT z innymi modami.
 
-Przed instalacją pobierz:
-https://forums.beamdog.com/discussion/64382/mod-journal-portrait-conversations-for-pstee/p1
-(DWN: https://forums.beamdog.com/uploads/editor/w2/53k6wv7d6y0z.zip
-https://web.archive.org/web/20230707040057/https://forums.beamdog.com/uploads/editor/w2/53k6wv7d6y0z.zip)
-(Powyższy mod jest wymagany aby w "Book of Torment" były wyświetlane portrety w oknach dialogowych.)
+Od wersji 1.75, dostałem pozowoleni na skorzystanie z kodu patchującego portrety od Smeagolheart (wielkie dzięki), więc BoT jest obecnie samowystarczalny!
 
-
-WeiDU jest również wymagany do instalacji (od wersji 1.50):
+WeiDU jest wymagany do instalacji:
 https://github.com/WeiDUorg/weidu/releases
-Po pobraniu zmień nazwę exe na Setup-BookOfTorment.exe
+Po pobraniu zmień nazwę weidu.exe na Setup-BookOfTorment.exe
 
-Instalacja (Windows&Wine):
-1. Rozpakuj oba mody i wrzuć do folderu z grą (obok chitin.key); Struktura plików powinna wyglądać następująco: folder BookOfTorment (nie BookOfTorment/BookOfTorment) oraz plik exe.
-2. Uruchom Setup-JournalPortraitConversations.exe (wybierz 'N' przy próbie [Modify PSTEE UI.Menu]), następnie 'I' zainstaluj;
-3. Uruchom Setup-BookOfTorment.exe, zainstaluj.
+Instalacja (Windows):
+	1. Rozpakuj mod i wrzuć do folderu z grą (obok chitin.key); Struktura plików powinna wyglądać następująco: folder BookOfTorment (nie BookOfTorment/BookOfTorment) oraz plik exe.
+	2. Uruchom Setup-BookOfTorment.exe, zainstaluj.
 
 Ustawienie skinów po instalacji: Przejdź do opcji grafiki w grze, i znajdź przycisk BoT ;).
 
@@ -30,7 +23,7 @@ Uwagi:
 
 ---
 
-Twórca moda na portrety:
+Twórca kodu na portrety:
 
 "Podczas instalacji lub reinstalacji tego moda na grze w toku rozgrywki, NPC w obszarach, które wcześniej odwiedziłeś, nie otrzymają portretów, ale obszary i NPC, których jeszcze nie odwiedziłeś, otrzymają portrety. Jeśli rozpoczniesz nową grę, wszystkie postacie niezależne będą miały portety."
 
@@ -42,12 +35,15 @@ Deinstalacja:
 
 ---------------------------------------------------------------------------------------------------------------------------------
 Podziękowania za pomysł/inspiracje/pomoc dla: 
-kanału discord - grimuar.pl(Grimuar Sferowca)
-Disco/smeagolheart/Pecca 
-Bubb
-Argent77(kod do dodawania pvrz)
-lefreut(pomoc w ustawieniu kolorów w dialogach)
-MephistoSatanDevil(Chinskie tłumaczenie)
+kanału discord - grimuar.pl (Grimuar Sferowca),
+ Disco,
+ Smeagolheart (za kod na portrety),
+ Pecca, 
+ Bubb, 
+ Argent77 (kod do dodawania pvrzi bibliotekę do portretów), 
+ lefreut (pomoc w ustawieniu kolorów w dialogach), 
+ MephistoSatanDevil (chińskie tłumaczenie).
+ Sauler89 za poprawkę do kodu na bestiariusz i włoskie tłumaczenie.
 
 ---------------------------------------------------------------------------------------------------------------------------------
 Opis:
@@ -75,7 +71,7 @@ Jeśli chcesz samodzielnie odchudzić plik conf: otwórz Baldur.Lua (w moich dok
 Dzięki @bbminner za usprawnienia!
 
 ---
-https://github.com/szef501/BookOfTorment/releases
+https://github.com/szef501/BookOfTorment/
 https://www.nexusmods.com/planescapetormentenhancededition/mods/9
 https://www.gibberlings3.net/forums/topic/36119-uimodplanescape-ee-book-of-torment-discover-the-dialogues-of-torment-in-a-new-edition/
 
