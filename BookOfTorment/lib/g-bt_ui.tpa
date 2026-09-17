@@ -2801,7 +2801,7 @@ menu
 	label
 	{
 		area 207 18 182 270
-		mosaic S9frame
+		mosaic "g-btfrm" --S9frame
 		align center top
 	}
 	-- SMEAGOL
