@@ -33,6 +33,9 @@ PRINT @11
 
 INCLUDE ~%MOD_FOLDER%/lib/g-bt_ui.tpa~
 INCLUDE ~%MOD_FOLDER%/lib/g-bt.tph~
+INCLUDE ~%MOD_FOLDER%/lib/g-bt_pl.tpa~
+INCLUDE ~%MOD_FOLDER%/lib/g-bt_en.tpa~
+INCLUDE ~%MOD_FOLDER%/lib/g-bt_ch.tpa~
 INCLUDE ~%MOD_FOLDER%/lib/g-bt_it.tpa~
 INCLUDE ~%MOD_FOLDER%/lib/g-bt_bestiary_fix.tpa~
 
