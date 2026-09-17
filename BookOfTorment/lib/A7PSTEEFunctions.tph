@@ -1,0 +1,139 @@
+// Code Courtesy of argent77 
+// 							 
+// Reads a numeric value from a LUA variable definition
+
+
+DEFINE_PATCH_FUNCTION GET_BESTIARY_NUMBER
+INT_VAR startOfs = 0
+        endOfs = 0
+STR_VAR keyName = ~~
+RET number
+BEGIN
+	SET number = "-1"
+	SET ofs = INDEX_BUFFER(~%keyName%[ %TAB%]*=~ startOfs)
+	PATCH_IF (ofs >= startOfs && ofs < endOfs) BEGIN
+		SET ofs2 = INDEX_BUFFER(~[%WNL%]~ ofs)
+		READ_ASCII ofs string (ofs2 - ofs)
+		INNER_PATCH_SAVE string ~%string%~ BEGIN
+			REPLACE_TEXTUALLY ~%keyName%[ %TAB%]*=\(-?[0-9]+\).*~ ~\1~
+		END
+		PATCH_IF (IS_AN_INT "string") BEGIN
+			SET number = string
+		END
+	END
+END
+
+// Reads a string value from a LUA variable definition
+DEFINE_PATCH_FUNCTION GET_BESTIARY_STRING
+INT_VAR startOfs = 0
+        endOfs = 0
+STR_VAR keyName = ~~
+RET value
+BEGIN
+	TEXT_SPRINT value ~~
+	SET ofs = INDEX_BUFFER(~%keyName%[ %TAB%]*=~ startOfs)
+	PATCH_IF (ofs >= startOfs && ofs < endOfs) BEGIN
+		SET ofs2 = INDEX_BUFFER(~[%WNL%]~ ofs)
+		READ_ASCII ofs string (ofs2 - ofs)
+		INNER_PATCH_SAVE value ~%string%~ BEGIN
+		  REPLACE_TEXTUALLY ~%keyName%[ %TAB%]*=[ %TAB%]*'\([^']*\)'.*~ ~\1~
+		END
+	END
+END
+
+// Reading bestiary entries
+COPY_EXISTING - ~bgee.lua~ ~override~
+  SET startIndex = INDEX_BUFFER(~bestiary[ %TAB%]*=~)
+
+  // first entry is special - skipping
+  SET startIndex = INDEX_BUFFER(~placeholder[ %TAB%]*=~ startIndex)
+  SET startIndex = INDEX_BUFFER(~},~ startIndex)
+
+  SET endIndex = INDEX_BUFFER(~},~ (startIndex + 2))
+  WHILE (startIndex >= 0) BEGIN
+    // processing index
+    LPF GET_BESTIARY_NUMBER INT_VAR startOfs = startIndex endOfs = endIndex STR_VAR keyName = "index" RET number END
+    PATCH_IF (number >= 0) BEGIN
+      SET index = number
+      SET $EVAL cre_index("%index%") = number
+
+      // processing desc0
+      LPF GET_BESTIARY_NUMBER INT_VAR startOfs = startIndex endOfs = endIndex STR_VAR keyName = "desc0" RET number END
+      SET $EVAL cre_desc_strref("%index%") = number
+
+      // processing class
+      LPF GET_BESTIARY_NUMBER INT_VAR startOfs = startIndex endOfs = endIndex STR_VAR keyName = "class" RET number END
+      SET $EVAL cre_class("%index%") = number
+
+      // processing imageUnknown
+      LPF GET_BESTIARY_STRING INT_VAR startOfs = startIndex endOfs = endIndex STR_VAR keyName = "imageUnknown" RET value END
+      TEXT_SPRINT $EVAL cre_imageUnknown("%index%") ~%value%~
+
+      // processing imageKnown
+      LPF GET_BESTIARY_STRING INT_VAR startOfs = startIndex endOfs = endIndex STR_VAR keyName = "imageKnown" RET value END
+      TEXT_SPRINT $EVAL cre_imageKnown("%index%") ~%value%~
+
+      // processing name
+      LPF GET_BESTIARY_NUMBER INT_VAR startOfs = startIndex endOfs = endIndex STR_VAR keyName = "name" RET number END
+      SET $EVAL cre_name_strref("%index%") = number
+
+      // jumping to next entry
+      SET startIndex = endIndex
+      SET endIndex = INDEX_BUFFER(~},~ (startIndex + 2))
+    END ELSE BEGIN
+      SET startIndex = "-1"
+    END
+END
+
+DEFINE_ACTION_FUNCTION TO_HEX_NUMBER
+	INT_VAR
+	  value     = 0   // the decimal number
+	  minDigits = 1   // min. number of digits in return value (not counting sign)
+	  prefix    = 0   // whether to return number with "0x" prefix
+	RET
+	  hexNumber       // returned as string without prefix
+	BEGIN
+	  ACTION_IF (minDigits < 1) BEGIN OUTER_SET minDigits = 1 END
+	  ACTION_IF (minDigits > 8) BEGIN OUTER_SET minDigits = 8 END
+	  OUTER_TEXT_SPRINT hexNumber ~~
+	  ACTION_DEFINE_ARRAY digit BEGIN ~0~ ~1~ ~2~ ~3~ ~4~ ~5~ ~6~ ~7~ ~8~ ~9~ ~a~ ~b~ ~c~ ~d~ ~e~ ~f~ END
+
+	  ACTION_IF (value < 0) BEGIN
+		OUTER_SET signed = 1
+		OUTER_SET value = 0 - value
+	  END ELSE BEGIN
+		OUTER_SET signed = 0
+	  END
+
+	  OUTER_WHILE (value != 0) BEGIN
+		OUTER_SET curDigit = value BAND 0xf
+		OUTER_SET value = value BLSR 4
+		OUTER_TEXT_SPRINT hexDigit $EVAL digit(~%curDigit%~)
+		OUTER_TEXT_SPRINT hexNumber ~%hexDigit%%hexNumber%~
+	  END
+
+	  OUTER_WHILE (STRING_LENGTH ~%hexNumber%~ < minDigits) BEGIN
+		OUTER_TEXT_SPRINT hexNumber ~0%hexNumber%~
+	  END
+
+	  ACTION_IF (prefix) BEGIN
+		OUTER_TEXT_SPRINT hexNumber ~0x%hexNumber%~
+	  END
+
+	  ACTION_IF (signed) BEGIN
+		OUTER_TEXT_SPRINT hexNumber ~-%hexNumber%~
+	  END
+	END
+
+	DEFINE_PATCH_FUNCTION TO_HEX_NUMBER
+	INT_VAR
+	  value     = 0
+	  minDigits = 1
+	  prefix    = 0
+	RET
+	  hexNumber
+	BEGIN
+	  INNER_ACTION BEGIN
+		LAF TO_HEX_NUMBER INT_VAR value = value minDigits = minDigits prefix = prefix RET hexNumber END
+	  END
+END

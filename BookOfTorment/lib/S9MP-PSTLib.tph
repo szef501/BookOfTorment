@@ -1,0 +1,45 @@
+
+// *** Code author: Smeagolheart (used/edited with permision by szef) ***
+
+//Variable Declarations
+INCLUDE ~%MOD_FOLDER%/lib/A7PSTEEFunctions.tph~
+
+// Functions
+	DEFINE_ACTION_MACRO ~AddBestiarypic~ BEGIN
+			ACTION_IF FILE_EXISTS_IN_GAME ~%Filename%.bmp~ THEN BEGIN
+				LOG ~PATCHING: %Crename%.cre with PORTRAIT: %Filename%.bmp~
+				COPY_EXISTING ~%Crename%.cre~ ~override~
+				WRITE_EVALUATED_ASCII 0x34 ~%Filename%~ #8
+				OUTER_SET rnd_cnt += 1												// Increment Counter for Total Portraits Applied
+			END			
+	END
+
+PRINT @05
+OUTER_SET rnd_cnt 			= 0													    // Initialize Counter for Total Number of Portraits
+
+//Read creature data & begin
+COPY_EXISTING_REGEXP GLOB ~^.+\.cre$~ ~override~
+	READ_ASCII  0x02cc dialoguefile ELSE 0
+	READ_ASCII  0x0034 portraitfile ELSE 0
+	READ_BYTE   0x0273 creclass ELSE 0
+	READ_STRREF 0x0008 Crefullname ELSE 0
+	READ_SHORT  0x28   animationindex  ELSE 0
+	PATCH_IF ((FILE_EXISTS_IN_GAME ~%dialoguefile%.dlg~)) BEGIN				// Creature has a valid dialogue file 
+					INNER_ACTION BEGIN
+						OUTER_SPRINT ~Crename~ ~%SOURCE_RES%~
+						LAF TO_HEX_NUMBER INT_VAR value = animationindex RET hexNumber END
+						OUTER_TEXT_SPRINT valueHex ~%hexNumber%~
+						ACTION_IF ((FILE_EXISTS_IN_GAME ~%valueHex%.ini~)) THEN BEGIN
+							COPY_EXISTING - ~%valueHex%.INI~ ~override~
+							LPF GET_BESTIARY_NUMBER INT_VAR startOfs = 0 endOfs = SOURCE_SIZE STR_VAR keyName = "bestiary" RET number END
+							PATCH_IF (number >= 0) BEGIN
+								SPRINT Filename $cre_imageKnown("%number%")
+							END	
+							PATCH_IF (number < 0) BEGIN
+								SPRINT Filename ~default~
+							END							
+						END
+						LAM AddBestiarypic
+					END  // INNER ACTION END
+	END  // PATCH_IF END
+	BUT_ONLY
