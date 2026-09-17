@@ -2,6 +2,8 @@
 @01 = ~Book of Torment~
 @02 = ~Questo mod richiede PST:EE~
 // messaggi durante l'installazione
+@05 = ~Aggiunta di ritratti...~
+@06 = ~Ritratti applicati a %rnd_cnt% personaggi!~
 @07 = ~Aggiunta dei file MOS+PVRZ...~
 @09 = ~File MOS+PVRZ aggiunti!~
 @10 = ~Copia dei file...~
