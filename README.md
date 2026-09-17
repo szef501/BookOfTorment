@@ -9,27 +9,14 @@
 Note that the installation alters the UI.menu, BGEE.lua, and L_en_US.lua files.
 
 Since v1.50 these files will be patched, so theoriticaly BoT is more flexible and compatible with other mods.
-
-Before installing, download the following mod:
-
-https://forums.beamdog.com/discussion/64382/mod-journal-portrait-conversations-for-pstee/p1
-
-(DWN: https://forums.beamdog.com/uploads/editor/w2/53k6wv7d6y0z.zip
-
-https://web.archive.org/web/20230707040057/https://forums.beamdog.com/uploads/editor/w2/53k6wv7d6y0z.zip)
-
-(The above mod is required for the 'Book of Torment' to display portraits in dialogue boxes.)
+Starting with version 1.75, I received permission to use Smeagolheart’s portrait patch code (thanks a lot), so BoT is now self-contained!
 
 Installation (Windows):
     
-1. Unpack mods and paste it in the game folder (where chitin.key is situated); 
+1. Unpack mod and paste it in the game folder (where chitin.key is situated); 
     File structure should looks like this: BookOfTorment folder (not BookOfTorment/BookOfTorment), and .exe file.
-
-2. Run Setup-JournalPortraitConversations.exe 
-    (Select 'N' when asked about [Modify PSTEE UI.Menu]), next: install it 'I';
     
-3. Run Setup-BookOfTorment.exe, and install it.
-
+2. Run Setup-BookOfTorment.exe, and install it.
      
 How to set skins after install: Go to the graphics options in the game, look for BoT button ;).
 
