@@ -1,0 +1,62 @@
+    ACTION_IF FILE_EXISTS_IN_GAME ~L_en_US.lua~ BEGIN
+        COPY_EXISTING ~L_en_US.lua~ ~override~
+            PATCH_IF (INDEX_BUFFER(~G-Book of Torment~) < 0) BEGIN
+                PATCH_IF (INDEX_BUFFER(~^[ %TAB%]*ZOOM_LOCK_LABEL[ %TAB%]*=[ %TAB%]*"[^"]*",~) < 0) BEGIN
+                    PATCH_FAIL ~Book of Torment ENG: ZOOM_LOCK_LABEL not found in L_en_US.lua; rollback to previous stage.~
+                END
+                REPLACE_TEXTUALLY ~\(^[ %TAB%]*ZOOM_LOCK_LABEL[ %TAB%]*=[ %TAB%]*"[^"]*",\)~ ~\1
+
+    -- G-Book of Torment (UI mod) - English
+    ORIGINAL_DBOX = "This slider allows to change dialogue box skin.^N\\n\\nO r i g i n a l\\n^-",
+    JPC_DBOX = "This slider allows to change dialogue box skin.^N\\n\\nJ o u r n a l \\tP o r t r a i t \\tC o n v e r s a t i o n s\\n\\t(à la Smeagolheart)^-",
+    SDB_DBOX = "This slider allows to change dialogue box skin.^N\\n\\nS i d e \\tD i a l o g u e \\tB o x\\n^-",
+    TTON_DBOX = "This slider allows to change dialogue box skin.^N\\n\\nA \\tl a \\tN u m e n e r a \\tD i a l o g u e \\tB o x\\n^-",
+    DBOX_SKIN = "This slider allows to change dialogue box skin.",
+    SLIDER_DBOX_STRING_0 = "^0xffd5c885Original",
+    SLIDER_DBOX_STRING_1 = "^0xffd5c885w/Portraits",
+    SLIDER_DBOX_STRING_2 = "^0xffd5c885Side",
+    SLIDER_DBOX_STRING_3 = "^0xffd5c885TTON",
+    CLASSIC_INV = "This slider allows to change inventory skin, and slots arrangement.^N\\n\\nC l a s s i c \\tI n v e n t o r y\\n^-",
+    SHARED_INV = "This slider allows to change inventory skin, and slots arrangement.^N\\n\\nS h a r e d \\tI n v e n t o r y\\n^-",
+    INV_SKIN = "This slider allows to change inventory skin, and slots arrangement.",
+    SLIDER_INV_STRING_0 = "^0xff78b570Classic",
+    SLIDER_INV_STRING_1 = "^0xff78b570Shared",
+    DEFAULT_JOURNAL = "This slider allows to change journal screen.^N\\n\\nD e f a u l t \\tJ o u r n a l\\n^-",
+    NEW_JOURNAL = "This slider allows to change journal screen.^N\\n\\nN e w \\tJ o u r n a l\\n^-",
+    JOURNAL_SKIN = "This slider allows to change journal screen.",
+    SLIDER_JOURNAL_0 = "^0xff7f00ffDefault",
+    SLIDER_JOURNAL_1 = "^0xff7f00ffNew",
+    DIALOGUE_BOX = "Dialogue Box:",
+    INVENTORY = "Inventory Layout:",
+    JOURNAL = "Journal Screen:",
+    COLOR_DESC = "It colors and saves the selected answers in dialog boxes (optional & experimental).",
+    COLOR_ON = "Color responses (^0xff008000ON^-)",
+    COLOR_OFF = "Color responses (^0xff0000ffOFF^-)",~
+            END
+            REPLACE_TEXTUALLY ~^[ %TAB%]*ORIGINAL_DBOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    ORIGINAL_DBOX = "This slider allows to change dialogue box skin.^N\\n\\nO r i g i n a l\\n^-",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*JPC_DBOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    JPC_DBOX = "This slider allows to change dialogue box skin.^N\\n\\nJ o u r n a l \\tP o r t r a i t \\tC o n v e r s a t i o n s\\n\\t(à la Smeagolheart)^-",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*SDB_DBOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SDB_DBOX = "This slider allows to change dialogue box skin.^N\\n\\nS i d e \\tD i a l o g u e \\tB o x\\n^-",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*TTON_DBOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    TTON_DBOX = "This slider allows to change dialogue box skin.^N\\n\\nA \\tl a \\tN u m e n e r a \\tD i a l o g u e \\tB o x\\n^-",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*DBOX_SKIN[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    DBOX_SKIN = "This slider allows to change dialogue box skin.",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_DBOX_STRING_0[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_DBOX_STRING_0 = "^0xffd5c885Original",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_DBOX_STRING_1[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_DBOX_STRING_1 = "^0xffd5c885w/Portraits",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_DBOX_STRING_2[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_DBOX_STRING_2 = "^0xffd5c885Side",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_DBOX_STRING_3[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_DBOX_STRING_3 = "^0xffd5c885TTON",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*CLASSIC_INV[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    CLASSIC_INV = "This slider allows to change inventory skin, and slots arrangement.^N\\n\\nC l a s s i c \\tI n v e n t o r y\\n^-",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*SHARED_INV[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SHARED_INV = "This slider allows to change inventory skin, and slots arrangement.^N\\n\\nS h a r e d \\tI n v e n t o r y\\n^-",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*INV_SKIN[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    INV_SKIN = "This slider allows to change inventory skin, and slots arrangement.",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_INV_STRING_0[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_INV_STRING_0 = "^0xff78b570Classic",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_INV_STRING_1[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_INV_STRING_1 = "^0xff78b570Shared",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*DEFAULT_JOURNAL[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    DEFAULT_JOURNAL = "This slider allows to change journal screen.^N\\n\\nD e f a u l t \\tJ o u r n a l\\n^-",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*NEW_JOURNAL[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    NEW_JOURNAL = "This slider allows to change journal screen.^N\\n\\nN e w \\tJ o u r n a l\\n^-",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*JOURNAL_SKIN[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    JOURNAL_SKIN = "This slider allows to change journal screen.",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_JOURNAL_0[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_JOURNAL_0 = "^0xff7f00ffDefault",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*SLIDER_JOURNAL_1[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    SLIDER_JOURNAL_1 = "^0xff7f00ffNew",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*DIALOGUE_BOX[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    DIALOGUE_BOX = "Dialogue Box:",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*INVENTORY[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    INVENTORY = "Inventory Layout:",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*JOURNAL[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    JOURNAL = "Journal Screen:",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*COLOR_DESC[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    COLOR_DESC = "It colors and saves the selected answers in dialog boxes (optional & experimental).",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*COLOR_ON[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    COLOR_ON = "Color responses (^0xff008000ON^-)",~
+            REPLACE_TEXTUALLY ~^[ %TAB%]*COLOR_OFF[ %TAB%]*=[ %TAB%]*"[^"]*",?~ ~    COLOR_OFF = "Color responses (^0xff0000ffOFF^-)",~
+            BUT_ONLY
+    END
