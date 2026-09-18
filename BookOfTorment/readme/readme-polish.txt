@@ -5,7 +5,7 @@ MOD UI: Book of Torment
 
 Instalacja zmienia pliki UI.menu, BGEE.lua, oraz L_pl_PL.lua.
 
-Od wersji 1.75, dostałem pozowoleni na skorzystanie z kodu patchującego portrety od Smeagolheart (wielkie dzięki), więc BoT jest obecnie samowystarczalny!
+Od wersji 2.0, dostałem pozowolenie na skorzystanie z kodu patchującego portrety od Smeagolheart (wielkie dzięki), więc BoT jest obecnie samowystarczalny!
 
 WeiDU jest wymagany do instalacji:
 https://github.com/WeiDUorg/weidu/releases
