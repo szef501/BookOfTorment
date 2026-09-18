@@ -10,7 +10,7 @@ Note that the installation alters the UI.menu, BGEE.lua, and other lua files.
 
 Since v1.50 these files will be patched, so theoriticaly BoT is more flexible and compatible with other mods.
 
-Starting with version 1.75, I received permission to use Smeagolheart’s portrait patch code (thanks a lot), so BoT is now self-contained!
+Starting with version 2.0, I received permission to use Smeagolheart’s portrait patch code (thanks a lot), so BoT is now self-contained!
 
 Installation (Windows):
     
