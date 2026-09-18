@@ -5,7 +5,7 @@ MOD UI: Book of Torment
 
 Note that the installation alters the UI.menu, BGEE.lua, and L_en_US.lua files.
 
-Starting with version 1.75, I received permission to use Smeagolheart’s portrait patch code (thanks a lot), so BoT is now self-contained!
+Starting with version 2.0, I received permission to use Smeagolheart’s portrait patch code (thanks a lot), so BoT is now self-contained!
 
 WeiDU is required for installation:
 https://github.com/WeiDUorg/weidu/releases
