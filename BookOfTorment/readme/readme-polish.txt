@@ -15,6 +15,8 @@ Instalacja (Windows):
 	1. Rozpakuj mod i wrzuć do folderu z grą (obok chitin.key); Struktura plików powinna wyglądać następująco: folder BookOfTorment (nie BookOfTorment/BookOfTorment) oraz plik exe.
 	2. Uruchom Setup-BookOfTorment.exe, zainstaluj.
 
+Dla iOS: https://forums.beamdog.com/discussion/comment/1226187/#Comment_1226187
+
 Ustawienie skinów po instalacji: Przejdź do opcji grafiki w grze, i znajdź przycisk BoT ;).
 
 ---------------------------------------------------------------------------------------------------------------------------------
