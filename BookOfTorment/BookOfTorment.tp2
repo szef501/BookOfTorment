@@ -1,6 +1,6 @@
 BACKUP ~BookOfTorment/backup~
 SUPPORT ~FallDamage312 | szef | https://www.gibberlings3.net/forums/topic/36119-uimodplanescape-ee-book-of-torment-discover-the-dialogues-of-torment-in-a-new-edition/~
-VERSION ~v2.1~
+VERSION ~v2.2~
 
 //README ~BookOfTorment/readme/readme-%LANGUAGE%.txt~
      //~BookOfTorment/readme/readme.txt~
@@ -8,18 +8,22 @@ VERSION ~v2.1~
 LANGUAGE ~English~
 	~english~
 	~BookOfTorment/lang/english/setup.tra~
+	~BookOfTorment/lang/english/g-bt.tra~
 
 LANGUAGE ~Polski (Polish)~
 	~polish~
 	~BookOfTorment/lang/polish/setup.tra~
+	~BookOfTorment/lang/polish/g-bt.tra~
 	
 LANGUAGE ~Italiano (Italian)~
 	~italian~
 	~BookOfTorment/lang/italian/setup.tra~
+	~BookOfTorment/lang/italian/g-bt.tra~
 
 LANGUAGE ~Simplified Chinese~
     ~schinese~
     ~BookOfTorment/lang/schinese/setup.tra~
+    ~BookOfTorment/lang/schinese/g-bt.tra~
 
 BEGIN @01
 REQUIRE_PREDICATE (GAME_IS ~pstee~) @02
@@ -33,7 +37,6 @@ PRINT @11
 
 INCLUDE ~%MOD_FOLDER%/lib/g-bt_ui.tpa~
 INCLUDE ~%MOD_FOLDER%/lib/g-bt.tph~
-//INCLUDE ~%MOD_FOLDER%/lib/g-bt_lang.tpa~
 INCLUDE ~%MOD_FOLDER%/lib/g-bt_bestiary_fix.tpa~ //by Sauler89
 
 	
