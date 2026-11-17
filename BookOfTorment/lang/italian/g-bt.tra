@@ -1,0 +1,49 @@
+@20 = ~Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N
+
+O r i g i n a l e
+^-~
+@21 = ~Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N
+
+J o u r n a l   P o r t r a i t   C o n v e r s a t i o n s
+  (à la Smeagolheart)^-~
+@22 = ~Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N
+
+D i a l o g o   L a t e r a l e
+^-~
+@23 = ~Questo cursore permette di cambiare l'aspetto della finestra di dialogo.^N
+
+A   l a   N u m e n e r a
+^-~
+@24 = ~Questo cursore permette di cambiare l'aspetto della finestra di dialogo.~
+@25 = ~^0xffd5c885Originale~
+@26 = ~^0xffd5c885Con ritratti~
+@27 = ~^0xffd5c885Laterale~
+@28 = ~^0xffd5c885TTON~
+@29 = ~Questo cursore permette di cambiare l'aspetto dell'inventario e la disposizione degli slot.^N
+
+I n v e n t a r i o   C l a s s i c o
+^-~
+@30 = ~Questo cursore permette di cambiare l'aspetto dell'inventario e la disposizione degli slot.^N
+
+I n v e n t a r i o   C o n d i v i s o
+^-~
+@31 = ~Questo cursore permette di cambiare l'aspetto dell'inventario e la disposizione degli slot.~
+@32 = ~^0xff78b570Classico~
+@33 = ~^0xff78b570Condiviso~
+@34 = ~Questo cursore permette di cambiare la schermata del diario.^N
+
+D i a r i o   P r e d e f i n i t o
+^-~
+@35 = ~Questo cursore permette di cambiare la schermata del diario.^N
+
+N u o v o   D i a r i o
+^-~
+@36 = ~Questo cursore permette di cambiare la schermata del diario.~
+@37 = ~^0xff7f00ffPredefinito~
+@38 = ~^0xff7f00ffNuovo~
+@39 = ~Finestra di dialogo:~
+@40 = ~Schermata Inventario:~
+@41 = ~Schermata del Diario:~
+@42 = ~Colora e memorizza le risposte selezionate nelle finestre di dialogo (opzionale e sperimentale).~
+@43 = ~Colora le risposte (^0xff008000SÌ^-)~
+@44 = ~Colora le risposte (^0xff0000ffNO^-)~

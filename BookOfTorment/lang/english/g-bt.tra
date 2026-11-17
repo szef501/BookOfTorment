@@ -1,0 +1,49 @@
+@20 = ~This slider allows to change dialogue box skin.^N
+
+O r i g i n a l
+^-~
+@21 = ~This slider allows to change dialogue box skin.^N
+
+J o u r n a l   P o r t r a i t   C o n v e r s a t i o n s
+  (à la Smeagolheart)^-~
+@22 = ~This slider allows to change dialogue box skin.^N
+
+S i d e   D i a l o g u e   B o x
+^-~
+@23 = ~This slider allows to change dialogue box skin.^N
+
+A   l a   N u m e n e r a   D i a l o g u e   B o x
+^-~
+@24 = ~This slider allows to change dialogue box skin.~
+@25 = ~^0xffd5c885Original~
+@26 = ~^0xffd5c885w/Portraits~
+@27 = ~^0xffd5c885Side~
+@28 = ~^0xffd5c885TTON~
+@29 = ~This slider allows to change inventory skin, and slots arrangement.^N
+
+C l a s s i c   I n v e n t o r y
+^-~
+@30 = ~This slider allows to change inventory skin, and slots arrangement.^N
+
+S h a r e d   I n v e n t o r y
+^-~
+@31 = ~This slider allows to change inventory skin, and slots arrangement.~
+@32 = ~^0xff78b570Classic~
+@33 = ~^0xff78b570Shared~
+@34 = ~This slider allows to change journal screen.^N
+
+D e f a u l t   J o u r n a l
+^-~
+@35 = ~This slider allows to change journal screen.^N
+
+N e w   J o u r n a l
+^-~
+@36 = ~This slider allows to change journal screen.~
+@37 = ~^0xff7f00ffDefault~
+@38 = ~^0xff7f00ffNew~
+@39 = ~Dialogue Box:~
+@40 = ~Inventory Layout:~
+@41 = ~Journal Screen:~
+@42 = ~It colors and saves the selected answers in dialog boxes (optional & experimental).~
+@43 = ~Color responses (^0xff008000ON^-)~
+@44 = ~Color responses (^0xff0000ffOFF^-)~
