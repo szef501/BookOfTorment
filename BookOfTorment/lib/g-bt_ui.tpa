@@ -14,6 +14,7 @@
 // 13. BGEE.lua
 // 14. Languages
 // 15. Color Responses
+// 16. Token replacment 
 
 //================================\\
 // 01. Graphics menu & skins menu \\
@@ -180,7 +181,7 @@ menu
 	text
 	{
 		area		42 596 178 36
-		text "Dialogue Box:"
+		text lua "BT('DIALOGUE_BOX')"
 		text style	"button"
 		text align left center
 		text useFontZoom 0
@@ -239,7 +240,7 @@ menu
 		text color lua "getLabelColor(5)"
 		action 
 		" 	
-			helpString = t('It colors and saves the selected answers in dialog boxes (optional & experimental).') --t('COLOR_DESC')			
+			helpString = GetColorDescString()	
 			selectedGraphicOpt = 0
 			selectedSL = 7	
 		"
@@ -306,7 +307,7 @@ menu
 	text
 	{
 		area		470 596 178 36
-		text "Inventory Layout:"
+		text lua "BT('INVENTORY')"
 		text style	"button"
 		text align left center
 		text useFontZoom 0
@@ -350,7 +351,7 @@ menu
 	text
 	{
 		area		894 596 178 36
-		text "Journal Screen:"
+		text lua "BT('JOURNAL')"
 		text style	"button"
 		text align left center
 		text useFontZoom 0
@@ -3223,129 +3224,118 @@ end~
 
 REPLACE_TEXTUALLY ~`[%TAB%%LNL%%MNL%%WNL%]+menu[%TAB%%LNL%%MNL%%WNL%]+{+[%TAB%%LNL%%MNL%%WNL%]+name "WELCOME_MENU"~ 
 
-~
+~~~~~
 --g-bt_10 (Sliders strings)
 
+BT_INST_LANG = "BT_INST_LANG_X"
+
+local BT_REF = {
+	ORIGINAL_DBOX = BT_SR_original_dbox_X, JPC_DBOX = BT_SR_jpc_dbox_X,
+	SDB_DBOX = BT_SR_sdb_dbox_X, TTON_DBOX = BT_SR_tton_dbox_X, DBOX_SKIN = BT_SR_dbox_skin_X,
+	SLIDER_DBOX_STRING_0 = BT_SR_sl_dbox_0_X, SLIDER_DBOX_STRING_1 = BT_SR_sl_dbox_1_X,
+	SLIDER_DBOX_STRING_2 = BT_SR_sl_dbox_2_X, SLIDER_DBOX_STRING_3 = BT_SR_sl_dbox_3_X,
+	CLASSIC_INV = BT_SR_classic_inv_X, SHARED_INV = BT_SR_shared_inv_X, INV_SKIN = BT_SR_inv_skin_X,
+	SLIDER_INV_STRING_0 = BT_SR_sl_inv_0_X, SLIDER_INV_STRING_1 = BT_SR_sl_inv_1_X,
+	DEFAULT_JOURNAL = BT_SR_default_jrn_X, NEW_JOURNAL = BT_SR_new_jrn_X, JOURNAL_SKIN = BT_SR_journal_skin_X,
+	SLIDER_JOURNAL_0 = BT_SR_sl_jrn_0_X, SLIDER_JOURNAL_1 = BT_SR_sl_jrn_1_X,
+	DIALOGUE_BOX = BT_SR_dialogue_box_X, INVENTORY = BT_SR_inventory_X, JOURNAL = BT_SR_journal_X,
+	COLOR_DESC = BT_SR_color_desc_X, COLOR_ON = BT_SR_color_on_X, COLOR_OFF = BT_SR_color_off_X,
+}
+
+local BT_EN = {
+	ORIGINAL_DBOX = 'This slider allows to change dialogue box skin.^N\n\nO r i g i n a l\n^-',
+	JPC_DBOX = 'This slider allows to change dialogue box skin.^N\n\nJ o u r n a l   P o r t r a i t   C o n v e r s a t i o n s\n  (à la Smeagolheart)^-',
+	SDB_DBOX = 'This slider allows to change dialogue box skin.^N\n\nS i d e   D i a l o g u e   B o x\n^-',
+	TTON_DBOX = 'This slider allows to change dialogue box skin.^N\n\nA   l a   N u m e n e r a   D i a l o g u e   B o x\n^-',
+	DBOX_SKIN = 'This slider allows to change dialogue box skin.',
+	SLIDER_DBOX_STRING_0 = '^0xffd5c885Original^-',
+	SLIDER_DBOX_STRING_1 = '^0xffd5c885w/Portraits^-',
+	SLIDER_DBOX_STRING_2 = '^0xffd5c885Side^-',
+	SLIDER_DBOX_STRING_3 = '^0xffd5c885TTON^-',
+	CLASSIC_INV = 'This slider allows to change inventory skin, and slots arrangement.^N\n\nC l a s s i c   I n v e n t o r y\n^-',
+	SHARED_INV = 'This slider allows to change inventory skin, and slots arrangement.^N\n\nS h a r e d   I n v e n t o r y\n^-',
+	INV_SKIN = 'This slider allows to change inventory skin, and slots arrangement.',
+	SLIDER_INV_STRING_0 = '^0xff78b570Classic^-',
+	SLIDER_INV_STRING_1 = '^0xff78b570Shared^-',
+	DEFAULT_JOURNAL = 'This slider allows to change journal screen.^N\n\nD e f a u l t   J o u r n a l\n^-',
+	NEW_JOURNAL = 'This slider allows to change journal screen.^N\n\nN e w   J o u r n a l\n^-',
+	JOURNAL_SKIN = 'This slider allows to change journal screen.',
+	SLIDER_JOURNAL_0 = '^0xff7f00ffDefault^-',
+	SLIDER_JOURNAL_1 = '^0xff7f00ffNew^-',
+	DIALOGUE_BOX = 'Dialogue Box:',
+	INVENTORY = 'Inventory Layout:',
+	JOURNAL = 'Journal Screen:',
+	COLOR_DESC = 'It colors and saves the selected answers in dialog boxes (optional & experimental).',
+	COLOR_ON = 'Color responses (^0xff008000ON^-)',
+	COLOR_OFF = 'Color responses (^0xff0000ffOFF^-)',
+}
+
+function BT_Lang()
+	local ok, lang = pcall(Infinity_GetINIString, 'Language', 'Text', 'en_US')
+	if ok and lang and lang ~= '' then return lang end
+	return 'en_US'
+end
+
+-- strref (tylko gdy język gry = język instalacji) -> angielski z kodu -> klucz
+function BT(key)
+	local id = BT_REF[key]
+	if id and id > 0 and BT_Lang() == BT_INST_LANG then
+		local ok, s = pcall(Infinity_FetchString, id)
+		if ok and type(s) == 'string' and s ~= '' then return s end
+	end
+	return BT_EN[key] or key
+end
+
 function GetdboxString()
-		if SkinsOptionsSliders[1][6] == 0 then
-		return t('This slider allows to change dialogue box skin.^N\n\nO r i g i n a l\n^-') --t("ORIGINAL_DBOX")
-		elseif SkinsOptionsSliders[1][6] == 1 then
-		return t('This slider allows to change dialogue box skin.^N\n\nJ o u r n a l \tP o r t r a i t \tC o n v e r s a t i o n s\n\t(à la Smeagolheart)^-') --t('JPC_DBOX')
-		elseif	SkinsOptionsSliders[1][6] == 2 then
-		return t('This slider allows to change dialogue box skin.^N\n\nS i d e \tD i a l o g u e \tB o x\n^-') --t('SDB_DBOX')
-		end
-	end
-	
-	function GetdboxDescString()
-		if SkinsOptionsSliders[1][6] == 0 then
-		return t('This slider allows to change dialogue box skin.') --t('DBOX_SKIN')
-		elseif SkinsOptionsSliders[1][6] == 1 then
-		return t('This slider allows to change dialogue box skin.') --t('DBOX_SKIN')
-		elseif SkinsOptionsSliders[1][6] == 2 then
-		return t('This slider allows to change dialogue box skin.') --t('DBOX_SKIN')
-		else
-		return t('This slider allows to change dialogue box skin.') --t('DBOX_SKIN')
-		end
-	end
+	local keys = { [0]='ORIGINAL_DBOX', [1]='JPC_DBOX', [2]='SDB_DBOX', [3]='TTON_DBOX' }
+	return BT(keys[SkinsOptionsSliders[1][6]] or 'ORIGINAL_DBOX')
+end
+function GetdboxDescString() return BT('DBOX_SKIN') end
+function GetdboxSliderString() return BT('SLIDER_DBOX_STRING_' .. tostring(SkinsOptionsSliders[1][6] or 0)) end
 
-	function GetdboxSliderString()
-		if SkinsOptionsSliders[1][6] == 0 then
-		return t('^0xffd5c885Original^-') --t('SLIDER_DBOX_STRING_0')
-		elseif SkinsOptionsSliders[1][6] == 1 then
-		return t('^0xffd5c885w/Portraits^-') --t('SLIDER_DBOX_STRING_1')
-		elseif SkinsOptionsSliders[1][6] == 2 then
-		return t('^0xffd5c885Side^-') --t('SLIDER_DBOX_STRING_2')
-		end
-	end
-	
-	function GetInvString()
-		if SkinsOptionsSliders[2][6] == 0 then
-		return t('This slider allows to change inventory skin, and slots arrangement.^N\n\nC l a s s i c \tI n v e n t o r y\n^-') --t('CLASSIC_INV')
-		elseif SkinsOptionsSliders[2][6] == 1 then
-		return t('This slider allows to change inventory skin, and slots arrangement.^N\n\nS h a r e d \tI n v e n t o r y\n^-') --t('SHARED_INV')
-		--else
-		--return t('This slider allows to change inventory skin, and slots arrangement.^N\n\nI n \tG a m e \tW o r l d \tS c r e e n \tI n v e n t o r y\n^-')
-		end
-	end
+function GetInvString()
+	if SkinsOptionsSliders[2][6] == 1 then return BT('SHARED_INV') end
+	return BT('CLASSIC_INV')
+end
+function GetInvDescString() return BT('INV_SKIN') end
+function GetInvSliderString()
+	if SkinsOptionsSliders[2][6] == 1 then return BT('SLIDER_INV_STRING_1') end
+	return BT('SLIDER_INV_STRING_0')
+end
 
-	function GetInvDescString()
-		if SkinsOptionsSliders[2][6] == 0 then
-		return t('This slider allows to change inventory skin, and slots arrangement.') --t('INV_SKIN')
-		else
-		return t('This slider allows to change inventory skin, and slots arrangement.') --t('INV_SKIN')
-		--else
-		--return t('This slider allows to change inventory skin, and slots arrangement.\n')
-		end
-	end
+function GetJournalString()
+	if SkinsOptionsSliders[3][6] == 0 then return BT('DEFAULT_JOURNAL') end
+	return BT('NEW_JOURNAL')
+end
+function GetJournalDescString() return BT('JOURNAL_SKIN') end
+function GetJournalSliderString()
+	if SkinsOptionsSliders[3][6] == 0 then return BT('SLIDER_JOURNAL_0') end
+	return BT('SLIDER_JOURNAL_1')
+end
 
-	function GetInvSliderString()
-		if SkinsOptionsSliders[2][6] == 0 then
-		return t('^0xff78b570Classic^-') --t('SLIDER_INV_STRING_0')
-		elseif SkinsOptionsSliders[2][6] == 1 then
-		return t('^0xff78b570Shared^-') --t('SLIDER_INV_STRING_1')
-		--else
-		--return t('^0xff78b570In World')
-		end
-	end
-	
-	
-	function GetJournalString()
-		if SkinsOptionsSliders[3][6] == 0 then
-		return t('This slider allows to change journal screen.^N\n\nD e f a u l t \tJ o u r n a l\n^-') --t('DEFAULT_JOURNAL')
-		else
-		return t('This slider allows to change journal screen.^N\n\nN e w \tJ o u r n a l\n^-') --t('NEW_JOURNAL')
-		end
-	end
+function GetDboxImgString()
+	if SkinsOptionsSliders[1][6] == 0 then return "g-btcla"
+	elseif SkinsOptionsSliders[1][6] == 1 then return "g-btpor"
+	elseif SkinsOptionsSliders[1][6] == 2 then return "g-btsd1"
+	else return "g-btttn" end
+end
+function GetInvImgString()
+	if SkinsOptionsSliders[2][6] == 0 then return "g-btdef"
+	elseif SkinsOptionsSliders[2][6] == 1 then return "g-btsh1"
+	else return "inv-iw" end
+end
+function GetJournalImgString()
+	if SkinsOptionsSliders[3][6] == 0 then return "g-btjol" else return "g-btjnw" end
+end
 
-	function GetJournalDescString()
-		if SkinsOptionsSliders[3][6] == 0 then
-		return t('This slider allows to change journal screen.') --t('JOURNAL_SKIN')
-		else
-		return t('This slider allows to change journal screen.') --t('JOURNAL_SKIN')
-		end
-	end
+function GetColorDescString()
+	return BT('COLOR_DESC')
+end
 
-	function GetJournalSliderString()
-		if SkinsOptionsSliders[3][6] == 0 then
-		return t('^0xff7f00ffDefault^-') --t('SLIDER_JOURNAL_0')
-		else
-		return t('^0xff7f00ffNew^-') --t('SLIDER_JOURNAL_1')
-		end
-	end
-	
-	function GetDboxImgString()
-	 if SkinsOptionsSliders[1][6] == 0 then
-      return "g-btcla"
-    elseif SkinsOptionsSliders[1][6] == 1 then
-      return "g-btpor"
-    elseif SkinsOptionsSliders[1][6] == 2 then
-      return "g-btsd1"
-    else
-      return "g-btttn"
-    end
-	end
-	
-	function GetInvImgString()
-	 if SkinsOptionsSliders[2][6] == 0 then
-      return "g-btdef"
-    elseif SkinsOptionsSliders[2][6] == 1 then
-      return "g-btsh1"
-    else
-      return "inv-iw"
-    end
-	end
-	
-	function GetJournalImgString()
-	if SkinsOptionsSliders[3][6] == 0 then
-      return "g-btjol"
-    else
-      return "g-btjnw"
-    end
-	end
 `
 menu
 {
-	name "WELCOME_MENU"~
+	name "WELCOME_MENU"~~~~~
 	
 //===========================\\ 
 // 11. Dialogentrytext 2 & 3 \\
@@ -4075,6 +4065,43 @@ styles =
 // 14. Languages \\
 //===============\\
 
+ACTION_IF FILE_EXISTS ~%MOD_FOLDER%/lang/%LANGUAGE%/g-bt.tra~ BEGIN
+  LOAD_TRA ~%MOD_FOLDER%/lang/%LANGUAGE%/g-bt.tra~
+END ELSE BEGIN
+  LOAD_TRA ~g-bt/english/g-bt.tra~
+END
+
+OUTER_SET $sr(~original_dbox~) = RESOLVE_STR_REF (@20)
+OUTER_SET $sr(~jpc_dbox~)      = RESOLVE_STR_REF (@21)
+OUTER_SET $sr(~sdb_dbox~)      = RESOLVE_STR_REF (@22)
+OUTER_SET $sr(~tton_dbox~)     = RESOLVE_STR_REF (@23)
+OUTER_SET $sr(~dbox_skin~)     = RESOLVE_STR_REF (@24)
+OUTER_SET $sr(~sl_dbox_0~)     = RESOLVE_STR_REF (@25)
+OUTER_SET $sr(~sl_dbox_1~)     = RESOLVE_STR_REF (@26)
+OUTER_SET $sr(~sl_dbox_2~)     = RESOLVE_STR_REF (@27)
+OUTER_SET $sr(~sl_dbox_3~)     = RESOLVE_STR_REF (@28)
+OUTER_SET $sr(~classic_inv~)   = RESOLVE_STR_REF (@29)
+OUTER_SET $sr(~shared_inv~)    = RESOLVE_STR_REF (@30)
+OUTER_SET $sr(~inv_skin~)      = RESOLVE_STR_REF (@31)
+OUTER_SET $sr(~sl_inv_0~)      = RESOLVE_STR_REF (@32)
+OUTER_SET $sr(~sl_inv_1~)      = RESOLVE_STR_REF (@33)
+OUTER_SET $sr(~default_jrn~)   = RESOLVE_STR_REF (@34)
+OUTER_SET $sr(~new_jrn~)       = RESOLVE_STR_REF (@35)
+OUTER_SET $sr(~journal_skin~)  = RESOLVE_STR_REF (@36)
+OUTER_SET $sr(~sl_jrn_0~)      = RESOLVE_STR_REF (@37)
+OUTER_SET $sr(~sl_jrn_1~)      = RESOLVE_STR_REF (@38)
+OUTER_SET $sr(~dialogue_box~)  = RESOLVE_STR_REF (@39)
+OUTER_SET $sr(~inventory~)     = RESOLVE_STR_REF (@40)
+OUTER_SET $sr(~journal~)       = RESOLVE_STR_REF (@41)
+OUTER_SET $sr(~color_desc~)    = RESOLVE_STR_REF (@42)
+OUTER_SET $sr(~color_on~)      = RESOLVE_STR_REF (@43)
+OUTER_SET $sr(~color_off~)     = RESOLVE_STR_REF (@44)
+
+ACTION_IF (~%LANGUAGE%~ STR_EQ ~polish~)  BEGIN OUTER_SPRINT bt_inst ~pl_PL~ END
+ELSE ACTION_IF (~%LANGUAGE%~ STR_EQ ~schinese~) BEGIN OUTER_SPRINT bt_inst ~zh_CN~ END
+ELSE ACTION_IF (~%LANGUAGE%~ STR_EQ ~italian~)  BEGIN OUTER_SPRINT bt_inst ~it_IT~ END
+ELSE BEGIN OUTER_SPRINT bt_inst ~en_US~ END
+
 //======================\\
 // 15. Color Responsess \\
 //======================\\
@@ -4090,9 +4117,9 @@ REPLACE_TEXTUALLY ~`[%TAB%%LNL%%MNL%%WNL%]+menu+[%TAB%%LNL%%MNL%%WNL%]+{[ %TAB%%
 	
 ~function getbtstatustext()
 	if bt_use_custom_color == 1 then
-		return t('Color responses (^0xff008000ON^-)') --t('COLOR_ON')
+		return BT('COLOR_ON')
 	else
-		return t('Color responses (^0xff0000ffOFF^-)') --t('COLOR_OFF')
+		return BT('COLOR_OFF')
 	end
 end
 
@@ -4100,3 +4127,22 @@ end
 menu
 {
 	name "WELCOME_MENU"~
+	
+//======================\\
+// 16. Token replacment \\
+//======================\\
+	
+COPY_EXISTING ~UI.menu~ ~override~
+  REPLACE_TEXTUALLY ~BT_INST_LANG_X~ ~%bt_inst%~
+  PATCH_FOR_EACH key IN
+    original_dbox jpc_dbox sdb_dbox tton_dbox dbox_skin
+    sl_dbox_0 sl_dbox_1 sl_dbox_2 sl_dbox_3
+    classic_inv shared_inv inv_skin sl_inv_0 sl_inv_1
+    default_jrn new_jrn journal_skin sl_jrn_0 sl_jrn_1
+    dialogue_box inventory journal color_desc color_on color_off
+  BEGIN
+    SET v = $sr(~%key%~)
+    SPRINT vs ~%v%~
+    REPLACE_TEXTUALLY ~BT_SR_%key%_X~ ~%vs%~
+  END
+BUT_ONLY
